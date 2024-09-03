@@ -1,12 +1,13 @@
 import { createStyles } from "antd-style";
 
-const useStyles = createStyles(({ token }) => ({
+const useStyles = createStyles(({ token, responsive, css }) => ({
   layout: {
     minHeight: "100vh",
   },
   header: {
     padding: "0 32px",
     backgroundColor: token.colorBgBase,
+    fontSize: 16,
   },
   content: {
     padding: "24px 32px",
@@ -30,24 +31,33 @@ const useStyles = createStyles(({ token }) => ({
       borderRadius: 0,
     },
   },
-  title: {
-    paddingLeft: 24,
-  },
-  hidden: {
-    visibility: "hidden",
-    height: 48,
-  },
+  title: css`
+    padding-left: 24px;
+    ${responsive.mobile} {
+      display: none;
+    }
+  `,
+  controls: css`
+    position: fixed;
+    bottom: 24px;
+    left: 32px;
+    display: grid;
+    gap: 32px;
+    ${responsive.mobile} {
+      display: none;
+    }
+  `,
   switch: {
-    position: "fixed",
-    bottom: 100,
-    left: 32,
     display: "flex",
     flexWrap: "wrap",
     gap: 8,
   },
-  initialize: {
-    margin: "24px 0 0 24px",
-  },
+  initialize: css`
+    /* margin: 24px 0 0 24px; */
+    ${responsive.mobile} {
+      display: none;
+    }
+  `,
 }));
 
 export default useStyles;

@@ -1,8 +1,7 @@
 import { Button, Menu, Switch, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGetTabData } from "../api/tabs.api";
+import { useGetTabData, usePatchTab } from "../api/tabs.api";
 import {
   LineChartOutlined,
   PieChartOutlined,
@@ -20,10 +19,11 @@ const icons = {
 const NavigationSider = () => {
   const { data: tabData } = useGetTabData();
   const { styles } = useStyles();
-  const { mutate: putInitialData } = useInitialize();
-
   const navigate = useNavigate();
   const location = useLocation();
+  const { mutate: putInitialData } = useInitialize();
+  const { mutate: patchTab } = usePatchTab();
+  const tabId = location.pathname.split("/")[1];
 
   const menuItems = Object.entries(tabData ?? {}).map(([key, values]) => ({
     key,
@@ -38,27 +38,54 @@ const NavigationSider = () => {
     window.document.title = pageTitle;
   };
 
+  const tabDetails = tabData?.[tabId];
+
+  const tabPlugins = [
+    ...new Set([
+      ...(tabDetails?.active ?? []),
+      ...(tabDetails?.inactive ?? []),
+      ...(tabDetails?.disabled ?? []),
+    ]),
+  ];
+
+  const allDisabled = tabDetails?.disabled?.length === tabPlugins.length;
+
+  const handleDisableAll = (checked: boolean) => {
+    const data = checked
+      ? { disabled: tabPlugins }
+      : {
+          disabled: [],
+          inactive: [tabData[tabId]?.inactive, tabData[tabId]?.disabled].flat(),
+        };
+
+    patchTab({ tabId, data });
+  };
+
   return (
-    <Sider className={styles.sider} width={250}>
+    <Sider className={styles.sider} width={250} breakpoint="sm">
       <Typography.Title level={2} className={styles.title}>
         Dashboard
       </Typography.Title>
 
       <Menu
         mode="inline"
-        selectedKeys={[location.pathname.split("/")[1]]}
+        selectedKeys={[tabId]}
         onSelect={handleNavigate}
         items={menuItems}
         className={styles.menu}
       />
-      <div className={styles.switch}>
-        <Typography.Text>All plugins enabled</Typography.Text>
-        <Switch checkedChildren="ON" unCheckedChildren="OFF" />
-      </div>
+      <div className={styles.controls}>
+        <div className={styles.switch}>
+          <Typography.Text>
+            {`${allDisabled ? "Enable" : "Disable"} all plugins`}
+          </Typography.Text>
+          <Switch onChange={handleDisableAll} value={allDisabled} />
+        </div>
 
-      <Button onClick={() => putInitialData()} className={styles.initialize}>
-        Restore data
-      </Button>
+        <Button onClick={() => putInitialData()} className={styles.initialize}>
+          Restore data
+        </Button>
+      </div>
     </Sider>
   );
 };
