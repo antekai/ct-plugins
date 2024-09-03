@@ -10,6 +10,10 @@ const useStyles = createStyles(() => ({
   card: {
     width: 300,
   },
+  disabled: {
+    opacity: 0.5,
+    pointerEvents: "none",
+  },
 }));
 
 export default useStyles;

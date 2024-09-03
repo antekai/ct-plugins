@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
-import { firebaseApi } from "./config";
-import { MenuItemProps } from "antd";
+import { useMutation, useQuery } from "react-query";
+import { firebaseApi, queryClient } from "./config";
+import { MenuItemProps, message } from "antd";
 
 interface Tab {
   title: string;
@@ -22,5 +22,28 @@ export const useGetTabData = () => {
   return useQuery<Tab[]>({
     queryKey: [TAB_DATA_QUERY_KEY],
     queryFn: getTabData,
+  });
+};
+
+const patchTab = async ({
+  tabId,
+  data,
+}: {
+  tabId: string;
+  data: Partial<Tab>;
+}) => {
+  const response = await firebaseApi.patch(`/data/tabdata/${tabId}.json`, data);
+  return response;
+};
+
+export const usePatchTab = () => {
+  return useMutation(patchTab, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(TAB_DATA_QUERY_KEY);
+      message.success("Plugin status updated");
+    },
+    onError: () => {
+      message.error("Failed to update plugin status");
+    },
   });
 };

@@ -45,6 +45,9 @@ const useStyles = createStyles(({ token }) => ({
     flexWrap: "wrap",
     gap: 8,
   },
+  initialize: {
+    margin: "24px 0 0 24px",
+  },
 }));
 
 export default useStyles;
