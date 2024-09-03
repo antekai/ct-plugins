@@ -4,12 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "antd": "^5.20.4",
+    "antd-style": "^3.6.2",
     "axios": "^1.7.7",
     "firebase": "^10.13.1",
     "primeicons": "^7.0.0",
