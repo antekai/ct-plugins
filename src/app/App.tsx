@@ -1,21 +1,9 @@
 import Providers from "./Providers";
-
 import { Layout as AntLayout } from "antd";
 import NavigationSider from "./NavigationSider";
 import Routes from "./Routes";
 import useStyles from "./App.styles";
-import { useLocation } from "react-router-dom";
-
-const Header = () => {
-  const { state } = useLocation();
-  const { styles } = useStyles();
-
-  return (
-    <AntLayout.Header className={styles.header}>
-      {state?.pageTitle ?? "Plugins Dashboard"}
-    </AntLayout.Header>
-  );
-};
+import Header from "./Header";
 
 const App = () => {
   const { styles } = useStyles();
@@ -27,7 +15,7 @@ const App = () => {
 
         <AntLayout>
           <Header />
-          <AntLayout.Content style={{ margin: "24px 16px 0" }}>
+          <AntLayout.Content className={styles.content}>
             <Routes />
           </AntLayout.Content>
         </AntLayout>

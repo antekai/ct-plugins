@@ -1,4 +1,4 @@
-import { Menu, Switch } from "antd";
+import { Menu, Switch, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import {
   PieChartOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
+import useStyles from "./App.styles";
 
 const icons = {
   "icon-marketing": <LineChartOutlined />,
@@ -18,6 +19,7 @@ const icons = {
 const NavigationSider = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { data: tabData } = useGetTabData();
+  const { styles } = useStyles();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,21 +42,25 @@ const NavigationSider = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      theme="light"
+      className={styles.sider}
+      width={250}
     >
-      <div>
-        <h2>Dashboard</h2>
-        <Menu
-          mode="inline"
-          selectedKeys={[location.pathname.split("/")[1]]}
-          onSelect={handleNavigate}
-          items={menuItems}
-        />
-        <Switch
-          checkedChildren="ON"
-          unCheckedChildren="OFF"
-          style={{ marginTop: "20px" }}
-        />
+      {!collapsed && (
+        <Typography.Title level={2} className={styles.title}>
+          Dashboard
+        </Typography.Title>
+      )}
+
+      <Menu
+        mode="inline"
+        selectedKeys={[location.pathname.split("/")[1]]}
+        onSelect={handleNavigate}
+        items={menuItems}
+        className={styles.menu}
+      />
+      <div className={styles.switch}>
+        {!collapsed && <Typography.Text>All plugins enabled</Typography.Text>}
+        <Switch checkedChildren="ON" unCheckedChildren="OFF" />
       </div>
     </Sider>
   );
