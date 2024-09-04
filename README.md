@@ -1,6 +1,6 @@
 # Plugins dashboard
 
-[![E2E Test](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml/badge.svg)](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml)
+[![E2E Test](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml/badge.svg)](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml)[![Netlify Status](https://api.netlify.com/api/v1/badges/f44018e0-9b18-42dc-aee3-68ff19db665e/deploy-status)](https://app.netlify.com/sites/ct-plugins/deploys)
 
 View and manage locations
 
