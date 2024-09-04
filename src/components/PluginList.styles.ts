@@ -9,10 +9,20 @@ const useStyles = createStyles(() => ({
   },
   card: {
     width: 300,
+    "& .ant-card-head": {
+      border: "none",
+    },
   },
   disabled: {
     opacity: 0.5,
     pointerEvents: "none",
+  },
+  cardExtra: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: 4,
+    height: 70,
   },
 }));
 

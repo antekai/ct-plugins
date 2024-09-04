@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Plugins dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![E2E Test](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml/badge.svg)](https://github.com/antekai/ct-plugins/actions/workflows/playwright.yml)
 
-Currently, two official plugins are available:
+View and manage locations
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Image](/docs/preview.jpg "preview")
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Installation](#installation)
+- [Description](#description)
+- [Development](#development)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. Clone the repository to your local machine and install required dependencies
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+> ```shell
+> git clone
+> cd ct-plugins
+> yarn install
+> ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Description
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+This is a React single page app for managing plugins.
+
+Features:
+
+- View plugins per page
+- Activate and deactivate plugins
+- Enable and disable plugins
+- Sync data with firebase realtime database
+
+Technologies:
+
+- Development server/tooling: [vite](https://vitejs.dev/guide/),
+- (Async) State management: [react-query](https://tanstack.com/query/latest)
+- UI/Styling: [antd](https://ant.design/), [antd-style](https://ant-design.github.io/antd-style)
+- Testing: eslint, [playwright](https://playwright.dev/)
+- Backend: [Firebase realtime database](https://firebase.google.com/docs/database)
+- CI/CD: GitHub Actions, Netlify
+
+Please check [Implementation docs](/docs/implementation.md) for more details
+
+## Development
+
+> ```shell
+> yarn start # local development
+> yarn lint # linting add --fix flag for automatic fixes
+> yarn test # run tests
+> yarn build # build app at folder /dist
+> yarn preview # preview locally build files
+> ```

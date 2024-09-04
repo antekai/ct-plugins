@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Card, Switch } from "antd";
+import { Card, Switch, Typography } from "antd";
 import useGetPlugins from "../api/plugins.api";
 import { Plugin } from "../api/plugins.api";
 import useStyles from "./PluginList.styles";
@@ -67,11 +67,16 @@ const PluginList = () => {
           key={pluginId}
           title={values.title}
           extra={
-            <Switch
-              data-testid={`switch-${pluginId}`}
-              value={values.active}
-              onChange={(active) => handleTogglePlugin(pluginId, active)}
-            />
+            <div className={styles.cardExtra}>
+              <Switch
+                data-testid={`switch-${pluginId}`}
+                value={values.active}
+                onChange={(active) => handleTogglePlugin(pluginId, active)}
+              />
+              <Typography.Text>
+                {values.active ? "Allowed" : "Blocked"}
+              </Typography.Text>
+            </div>
           }
           className={cx(styles.card, values.disabled && styles.disabled)}
         >
