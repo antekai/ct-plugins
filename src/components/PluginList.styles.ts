@@ -15,7 +15,6 @@ const useStyles = createStyles(() => ({
   },
   disabled: {
     opacity: 0.5,
-    pointerEvents: "none",
   },
   cardExtra: {
     display: "flex",

@@ -35,3 +35,31 @@ test("activate/deactivate plugins", async ({ page }) => {
   await switch1.click();
   await expect(switch1).toBeChecked();
 });
+
+test("disable/enable plugins", async ({ page }) => {
+  test.skip(!!process.env.CI, "This test is skipped in CI environments");
+  await page.goto("/");
+  const restoreButton = await page.getByRole("button", {
+    name: "Restore data",
+  });
+  const disableAll = await page.getByTestId("disable-all");
+  await restoreButton.click();
+
+  // disable all
+  await disableAll.click();
+  await expect(await page.getByTestId(`switch-plugin1`)).toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin2`)).toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin3`)).toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin4`)).toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin5`)).toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin6`)).toBeDisabled();
+
+  // re-enable all
+  await disableAll.click();
+  await expect(await page.getByTestId(`switch-plugin1`)).not.toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin2`)).not.toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin3`)).not.toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin4`)).not.toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin5`)).not.toBeDisabled();
+  await expect(await page.getByTestId(`switch-plugin6`)).not.toBeDisabled();
+});

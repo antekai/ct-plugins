@@ -65,13 +65,16 @@ const PluginList = () => {
       {Object.entries(pluginList ?? {}).map(([pluginId, values]) => (
         <Card
           key={pluginId}
+          data-testid={`card-${pluginId}`}
           title={values.title}
+          aria-disabled={values.disabled}
           extra={
-            <div className={styles.cardExtra}>
+            <div className={cx(styles.cardExtra)}>
               <Switch
                 data-testid={`switch-${pluginId}`}
                 value={values.active}
                 onChange={(active) => handleTogglePlugin(pluginId, active)}
+                disabled={values.disabled}
               />
               <Typography.Text>
                 {values.active ? "Allowed" : "Blocked"}
