@@ -46,6 +46,8 @@ Please check [Implementation docs](/docs/implementation.md) for more details
 
 ## Development
 
+Please create `.env` file and add VITE_FIREBASE_URL to run application local
+
 > ```shell
 > yarn start # local development
 > yarn lint # linting add --fix flag for automatic fixes
