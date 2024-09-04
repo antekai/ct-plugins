@@ -68,6 +68,7 @@ const PluginList = () => {
           title={values.title}
           extra={
             <Switch
+              data-testid={`switch-${pluginId}`}
               value={values.active}
               onChange={(active) => handleTogglePlugin(pluginId, active)}
             />

@@ -51,6 +51,7 @@ const useStyles = createStyles(({ token, responsive, css }) => ({
     display: "flex",
     flexWrap: "wrap",
     gap: 8,
+    cursor: "pointer",
   },
   initialize: css`
     /* margin: 24px 0 0 24px; */

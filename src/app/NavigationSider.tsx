@@ -56,13 +56,13 @@ const NavigationSider = () => {
 
   const allDisabled = tabDetails?.disabled?.length === tabPlugins.length;
 
-  const handleDisableAll = (checked: boolean) => {
-    const data = checked
-      ? { disabled: tabPlugins }
-      : {
+  const handleDisableAll = () => {
+    const data = allDisabled
+      ? {
           disabled: [],
           inactive: [tabData[tabId]?.inactive, tabData[tabId]?.disabled].flat(),
-        };
+        }
+      : { disabled: tabPlugins };
 
     patchTab({ tabId, data });
   };
@@ -82,7 +82,7 @@ const NavigationSider = () => {
       />
       <div className={styles.controls}>
         <div className={styles.switch}>
-          <Typography.Text>
+          <Typography.Text onClick={handleDisableAll}>
             {`${allDisabled ? "Enable" : "Disable"} all plugins`}
           </Typography.Text>
           <Switch onChange={handleDisableAll} value={allDisabled} />
