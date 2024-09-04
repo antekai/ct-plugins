@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import useStyles from "./App.styles";
 import { useInitialize } from "../api/initialize.api";
+import { useEffect } from "react";
 
 const icons = {
   "icon-marketing": <LineChartOutlined />,
@@ -31,11 +32,16 @@ const NavigationSider = () => {
     icon: icons[values.icon as keyof typeof icons],
   }));
 
+  useEffect(() => {
+    const selectedTabLabel =
+      menuItems.find((item) => item.key === tabId)?.label ?? "";
+
+    document.title = `${selectedTabLabel} Plugins`;
+  }, [tabId, tabData, menuItems]);
+
   const handleNavigate = ({ key }: { key: string }) => {
     const pageTitle = `${tabData[key].title} Plugins`;
     navigate(`/${key}`, { state: { pageTitle } });
-
-    window.document.title = pageTitle;
   };
 
   const tabDetails = tabData?.[tabId];
