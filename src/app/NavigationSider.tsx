@@ -85,7 +85,11 @@ const NavigationSider = () => {
           <Typography.Text onClick={handleDisableAll}>
             {`${allDisabled ? "Enable" : "Disable"} all plugins`}
           </Typography.Text>
-          <Switch onChange={handleDisableAll} value={allDisabled} />
+          <Switch
+            onChange={handleDisableAll}
+            value={allDisabled}
+            data-testid="disable-all"
+          />
         </div>
 
         <Button onClick={() => putInitialData()} className={styles.initialize}>
