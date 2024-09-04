@@ -53,12 +53,11 @@ const useStyles = createStyles(({ token, responsive, css }) => ({
     gap: 8,
     cursor: "pointer",
   },
-  initialize: css`
-    /* margin: 24px 0 0 24px; */
-    ${responsive.mobile} {
-      display: none;
-    }
-  `,
+  footer: {
+    backgroundColor: token.colorBgBase,
+    display: "flex",
+    gap: 4,
+  },
 }));
 
 export default useStyles;

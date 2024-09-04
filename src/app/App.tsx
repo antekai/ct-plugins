@@ -1,5 +1,5 @@
 import Providers from "./Providers";
-import { Layout as AntLayout } from "antd";
+import { Layout as AntLayout, Typography } from "antd";
 import NavigationSider from "./NavigationSider";
 import Routes from "./Routes";
 import useStyles from "./App.styles";
@@ -18,6 +18,15 @@ const App = () => {
           <AntLayout.Content className={styles.content}>
             <Routes />
           </AntLayout.Content>
+          <AntLayout.Footer className={styles.footer}>
+            <Typography.Text>Source code:</Typography.Text>
+            <Typography.Link
+              href="https://github.com/antekai/ct-plugins"
+              target="_blank"
+            >
+              Github
+            </Typography.Link>
+          </AntLayout.Footer>
         </AntLayout>
       </AntLayout>
     </Providers>
