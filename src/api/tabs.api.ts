@@ -11,15 +11,17 @@ interface Tab {
   menuItems: (MenuItemProps & { iconKey: string })[];
 }
 
+type TabList = Record<string, Tab>;
+
 const TAB_DATA_QUERY_KEY = "tabData";
 
-const getTabData = async (): Promise<Tab[]> => {
+const getTabData = async (): Promise<TabList> => {
   const response = await firebaseApi.get("/data/tabdata.json");
   return response;
 };
 
 export const useGetTabData = () => {
-  return useQuery<Tab[]>({
+  return useQuery<TabList>({
     queryKey: [TAB_DATA_QUERY_KEY],
     queryFn: getTabData,
   });
@@ -38,12 +40,20 @@ const patchTab = async ({
 
 export const usePatchTab = () => {
   return useMutation(patchTab, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(TAB_DATA_QUERY_KEY);
-      message.success("Plugin status updated");
+    onMutate: async ({ tabId, data }) => {
+      queryClient.setQueryData<TabList>(
+        TAB_DATA_QUERY_KEY,
+        (oldData: TabList = {}) => {
+          const newData = {
+            ...oldData,
+            [tabId]: { ...oldData[tabId], ...data },
+          };
+
+          return newData;
+        }
+      );
     },
-    onError: () => {
-      message.error("Failed to update plugin status");
-    },
+    onSuccess: () => message.success("Plugin status updated"),
+    onError: () => message.error("Failed to update plugin status"),
   });
 };
